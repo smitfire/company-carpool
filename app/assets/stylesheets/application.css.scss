@@ -1,0 +1,34 @@
+@charset "utf-8";
+
+// @import "normalize-rails";
+// @import "bourbon";
+// @import "base/grid-settings";
+// @import "neat";
+// @import "base/base";
+// @import "refills/flashes";
+
+// Example using 'Cerulean' bootswatch
+
+//Import bootstrap-sprockets
+@import "bootstrap-sprockets";
+
+// Import cerulean variables
+@import "bootswatch/yeti/variables";
+
+// Then bootstrap itself
+@import "bootstrap";
+
+@import "bootstrap-datepicker";
+
+// Bootstrap body padding for fixed navbar
+body { padding-top: 60px; }
+
+// And finally bootswatch style itself
+@import "bootswatch/yeti/bootswatch";
+
+// @import "smart-listing";
+// @import "bootstrap-calendar";
+// @import "fullcalendar";
+
+// Whatever application styles you have go last
+@import "signin";

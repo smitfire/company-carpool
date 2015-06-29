@@ -1,0 +1,16 @@
+
+<%= month_calendar day_names: "date.day_names", events: @meetings, header: {class: "calendar-header"}, table: {class: "table table-bordered"}, tr: {class: "calendar-row"}, td: {class: "day"} do |date, meetings| %>
+    <ul class="list-group">
+      <% meetings.each do |meeting| %>
+          <li class="list-group-item">
+            <%= link_to meeting.name, user_carpool_path(meeting, meeting.driver) %> <span class="pull-right"><%= meeting.time %></span>
+          </li>
+          
+      <% end %>
+    </ul>
+    <div class="clearfix"></div>
+    <span class="pull-right">
+        <%= date %>
+    </span>
+
+<% end %>

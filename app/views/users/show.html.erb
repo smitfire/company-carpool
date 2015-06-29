@@ -1,0 +1,44 @@
+<div class="jumbotron">
+  <h1>Jumbotron</h1>
+  <p>This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+  <div class="btn-group btn-group-justified">
+    <!-- <a href="#" id="create_ride_link" class="btn btn-success btn-lg">I Need A Ride</a> -->
+    <a href="#" id="create_drive_link" class="btn btn-primary btn-lg">I'll Drive</a>
+    <%= link_to "Calendar", calendar_path(@user), class: "btn btn-info btn-lg" %>
+  </div>
+</div>
+
+
+
+<!-- <hr> -->
+
+
+<%= render partial: "carpool_create", locals: {user: @user} %> 
+
+
+<hr>
+
+<div>
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs nav-justified" id="myTabs" role="tablist">
+    <li role="presentation" class="active"><a href="#all_available" aria-controls="all_available" role="tab" data-toggle="tab">Available Rides</a></li>
+    <li role="presentation"><a href="#passenger_rides" aria-controls="passenger_rides" role="tab" data-toggle="tab">Passenger Carpools</a></li>
+    <li role="presentation"><a href="#driver_rides" aria-controls="driver_rides" role="tab" data-toggle="tab">Driver Carpools</a></li>
+    <!-- <li role="presentation"><a href="#driver_cal" aria-controls="driver_cal" role="tab" data-toggle="tab">Calendar</a></li> -->
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="all_available">
+        <%= render partial: "available_rides", locals: {available_rides: @available_rides, user: @user} %>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="passenger_rides">
+        <%= render partial: "passenger_rides", locals: {user: @user} %>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="driver_rides">
+        <%= render partial: "driver_rides", locals: {user: @user} %>
+    </div>
+    
+  </div>
+</div>
+

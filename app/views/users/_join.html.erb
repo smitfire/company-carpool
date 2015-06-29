@@ -1,0 +1,17 @@
+<span class="pull-right">
+    <% if current_user && !post.likers.include?(current_user) %>
+      <%= form_for :like, html: {  class: 'like-form form form-inline pull-right'}, method: :post,  url: post_likes_path(post.id) do |f| %>
+        <%= f.hidden_field :user_id, value: current_user.id %>
+        <%= f.hidden_field :post_id, value: post.id %>
+        
+        <button class="pull-right btn btn-default btn-sm">
+          <%=post.likes.count%>
+        </button>
+        <%= f.submit "+", class: "btn btn-success btn-sm like-button pull-right" %>
+      <%end%>
+    <%else%>
+      <button class="pull-right btn btn-default btn-sm">
+        <%=post.likes.count%>
+      </button>
+    <%end%>
+</span>
