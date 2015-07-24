@@ -30,6 +30,7 @@ gem 'kaminari'
 gem "neat", "~> 1.7.0"
 gem "newrelic_rpm", ">= 3.9.8"
 gem "normalize-rails", "~> 3.0.0"
+gem "paperclip", "~> 4.2"
 gem "pg"
 gem "rack-canonical-host"
 gem "rails", "4.2.1"

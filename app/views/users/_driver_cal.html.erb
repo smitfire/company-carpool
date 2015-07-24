@@ -3,7 +3,7 @@
     <ul class="list-group">
       <% meetings.each do |meeting| %>
           <li class="list-group-item">
-            <%= link_to meeting.name, user_carpool_path(meeting, meeting.driver) %> <span class="pull-right"><%= meeting.time %></span>
+            <%= link_to meeting.name, company_user_carpool_path(@user.company, meeting, meeting.driver) %> <span class="pull-right"><%= meeting.time %></span>
           </li>
           
       <% end %>

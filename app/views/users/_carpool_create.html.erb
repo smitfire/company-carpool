@@ -6,7 +6,7 @@
         <h4 class="modal-title">Modal title</h4>
       </div>
       <div class="modal-body">
-        <%= form_for user.driver_carpools.new, html:{class: 'form-signin'}, url: user_carpools_path(user.id) do |f| %>
+        <%= form_for user.driver_carpools.new, html:{class: 'form-signin'}, url: company_user_carpools_path(user.company, user) do |f| %>
           <h2 class="form-signin-heading">Create Ride</h2>
           
           <div class="form-group">

@@ -6,18 +6,23 @@ class SessionsController < ApplicationController
   def create
     if User.find_by_email(params[:user][:email])
       user = User.find_by_email(params[:user][:email])
-      if user && user.authenticate(params[:user][:password])
+      puts "="*100
+      puts user.company
+      puts user.company.id
+      puts "="*100
+      puts params[:company_id]
+      puts "="*100
+      if user && user.authenticate(params[:user][:password]) && user.company.id.to_s == params[:company_id]
         session[:user_id] = user.id
-        redirect_to user_path(user.id)
+        flash[:notice] = "Succesfully logged in"
+        redirect_to company_user_path(params[:company_id], user.id)
       else
-        redirect_to root_path
+        flash[:error] = "Authentication Failed, make sure you are in the right company"
+        redirect_to '/'
       end
     else
-      flash[:alert] = "Failed to log in"
+      flash[:alert] = "Could not find user by that email"
       redirect_to '/'
-      # user = User.create!(name: params[:user][:name], email: params[:user][:email], password: params[:user][:password], password_confirmation: params[:user][:password_confirmation])
-      # session[:user_id] = user.id
-      # redirect_to user_path(user.id)
     end
   end
 
@@ -27,6 +32,6 @@ class SessionsController < ApplicationController
 
   def destroy
     session[:user_id] = nil
-    redirect_to root_url, :notice => "Signed Out!"
+    redirect_to "/", :notice => "Signed Out!"
   end
 end

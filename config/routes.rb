@@ -1,16 +1,23 @@
 Rails.application.routes.draw do
+    
+    get '/' => 'high_voltage/pages#show', id: 'home', as: :home
 
-    get '/' => 'high_voltage/pages#show', id: 'home'
+    get '/' => 'high_voltage/pages#show', id: 'home', as: :about
     
     get "users/new_release" => 'users#new_release', :as => :new_release
 
+    get "users/:id/ride_map" => 'users#map', :as => :ride_map
+
     get "/users/:user_id/join/:id" => "carpools#join_carpool", :as => :join_carpool
 
-    get "users/:id/calendar" => "users#calendar", as: :calendar
+    get "/companies/:company_id/users/:id/calendar" => "users#calendar", as: :calendar
     
-    resources :sessions, only: [:create, :destroy, :new]
-    resources :users do
-      resources :carpools
+
+    resources :companies do
+        resources :sessions, only: [:create, :destroy, :new]
+        resources :users do
+          resources :carpools
+        end
     end
 end
 

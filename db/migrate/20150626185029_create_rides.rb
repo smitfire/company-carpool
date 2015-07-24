@@ -3,7 +3,8 @@ class CreateRides < ActiveRecord::Migration
     create_table :rides do |t|
       t.integer :user_id
       t.integer :carpool_id
-      # t.boolean :driver?, :default => false
+      # t.boolean 
+      t.boolean :driver?, :default => false
 
       t.timestamps null: false
     end

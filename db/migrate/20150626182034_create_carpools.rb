@@ -5,7 +5,7 @@ class CreateCarpools < ActiveRecord::Migration
       t.string :name
       t.integer :capacity
       t.integer :range
-      t.integer :driver_id
+      # t.integer :driver_id
       
       t.timestamps null: false
     end

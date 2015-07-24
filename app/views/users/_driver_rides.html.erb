@@ -12,13 +12,16 @@
       </thead>
       <tbody>
         <% user.driver_carpools.each do |po_ride| %>
-         <tr>
-           <td><%= po_ride.seats_remaining %></td>
-           <td><%= po_ride.driver.name %></td>
-           <td><%= po_ride.name %></td>
-           <td><%= po_ride.driver.distance_to( [user.latitude, user.longitude] ).round(3) %></td>
-           <td><%= po_ride.date %></td>
-         </tr> 
+         <% if po_ride.driver.nil? %>
+         <% else %>
+           <tr>
+             <td><%= po_ride.seats_remaining %></td>
+             <td><%= po_ride.driver.name %></td>
+             <td><%= po_ride.name %></td>
+             <td><%= po_ride.driver.distance_to( [user.latitude, user.longitude] ).round(3) %></td>
+             <td><%= po_ride.date %></td>
+           </tr> 
+          <% end -%>        
         <% end -%>        
       </tbody>
     </table>

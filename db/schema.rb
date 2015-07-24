@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150626185029) do
+ActiveRecord::Schema.define(version: 20150629231831) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,15 +21,27 @@ ActiveRecord::Schema.define(version: 20150626185029) do
     t.string   "name"
     t.integer  "capacity"
     t.integer  "range"
-    t.integer  "driver_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "companies", force: :cascade do |t|
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "email"
+    t.string   "password_digest"
+    t.string   "password_confirmation"
+    t.string   "logo_file_name"
+    t.string   "logo_content_type"
+    t.integer  "logo_file_size"
+    t.datetime "logo_updated_at"
+    t.string   "street"
+    t.string   "city"
+    t.string   "state"
+    t.string   "country"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -51,15 +63,23 @@ ActiveRecord::Schema.define(version: 20150626185029) do
   create_table "rides", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "carpool_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.boolean  "driver?",    default: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
+
+  add_index "rides", ["carpool_id"], name: "index_rides_on_carpool_id", using: :btree
+  add_index "rides", ["user_id"], name: "index_rides_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "name"
     t.string   "email"
     t.string   "password_digest"
     t.string   "password_confirmation"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
+    t.datetime "avatar_updated_at"
     t.string   "street"
     t.string   "city"
     t.string   "state"

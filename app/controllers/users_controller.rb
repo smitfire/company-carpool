@@ -7,16 +7,9 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
-    @available_rides = Kaminari.paginate_array(@user.available_rides).page(params[:page]).per(10)
-    # @meetings = Carpool.all
-
-    # @users = User.all
-    # @hash = Gmaps4rails.build_markers(@users) do |user, marker|
-    #   marker.lat user.latitude
-    #   marker.lng user.longitude
-    # end
-
+    @user = User.includes(:company).find(params[:id])
+    @available_rides = Kaminari.paginate_array(Carpool.available_rides(@user)).page(params[:page]).per(10)
+    
   end
 
   def destroy
@@ -29,8 +22,20 @@ class UsersController < ApplicationController
     end
   end
 
+  def map
+    @user = User.includes(:company).find(params[:id])
+    cpools = Carpool.available_rides(@user)
+    @available_rides = Kaminari.paginate_array(Carpool.available_rides(@user)).page(params[:page]).per(10)
+    @hash = Gmaps4rails.build_markers(cpools) do |cpool, marker|
+      marker.lat cpool.latitude
+      marker.lng cpool.longitude
+      # marker.infowindow "#{cpool.name} is leaving at #{cpool.date} and has #{cpool.seats_remaining} seats open"
+      marker.infowindow render_to_string(:partial => "/users/info_map", :locals => { :object => cpool, user: @user})
+    end
+  end
+
   def calendar
-    @user = User.find(params[:id])
+    @user = User.includes(:company).find(params[:id])
     @meetings = @user.appointments
     render "_driver_cal"
   end

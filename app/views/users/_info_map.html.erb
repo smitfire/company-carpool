@@ -1,0 +1,25 @@
+<ul class="list-group">
+  <li class="list-group-item">
+    <span>Carpool: </span>
+    <span class="pull-right">
+        <%= link_to object.name, company_user_carpool_path(user.company, object.driver, object) %>
+    </span>
+  </li>
+  <li class="list-group-item">
+    <span class="badge"><%= object.seats_remaining %></span>
+    <%= "Open Seats:     #{}" %>
+  </li>
+  <li class="list-group-item">
+    <span>Date: </span>
+    <span class="pull-right">
+        <%= object.date.to_formatted_s(:short) %>
+    </span>
+  </li>
+  <li class="list-group-item">
+    <span>Driver: </span>
+    <span class="pull-right">
+        <%= link_to object.driver.name, company_user_path(user.company, object.driver) %>
+    </span>
+  </li>
+  <%= link_to "Join Ride", join_carpool_path(user, object), class: "btn btn-sm btn-success btn-block" %>
+</ul>

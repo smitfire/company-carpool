@@ -7,6 +7,10 @@ class CreateUsers < ActiveRecord::Migration
       t.string :password_digest
       t.string :password_confirmation
       
+      t.attachment :avatar
+      
+      t.string :building
+            
       t.string :street
       t.string :city
       t.string :state

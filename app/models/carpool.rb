@@ -1,13 +1,28 @@
 class Carpool < ActiveRecord::Base
 
-    belongs_to :driver, class_name: "User"
+    # belongs_to :driver, class_name: "User"
 
     has_many :rides
-    has_many :passengers, -> { uniq }, through: :rides, source: :user
-
-    extend SimpleCalendar
-    has_calendar
     
+    has_many :users, -> { uniq }, through: :rides
+
+    has_one :driver_ride, -> {drivers}, class_name: 'Ride'
+    
+    has_one :driver,through: :driver_ride, source: :user
+    
+    has_many :passenger_rides, -> {passengers}, class_name: 'Ride'
+    
+    has_many :passengers, through: :passenger_rides, source: :user
+
+    # has_one :driver, -> {  }, through: :rides
+    # has_many :passengers, -> { uniq }, through: :rides, source: :user
+
+    scope :available_rides, -> (user) { includes(:driver).where("id NOT IN (?)", user.carpools.pluck(:id)) }
+
+    # extend SimpleCalendar
+    # has_calendar
+
+
     def starts_at
         Date.today    
     end
