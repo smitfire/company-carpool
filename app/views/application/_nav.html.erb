@@ -23,7 +23,7 @@
           </li>
           
           <li>
-            <%= link_to "Calendar", calendar_path(@user.company, @user) %>
+            <%= link_to "Calendar", calendar_path(current_user.company, current_user) %>
           </li>
           
           <li class="pull-right">
