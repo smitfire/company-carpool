@@ -3,7 +3,18 @@
 </div>
 
 <hr>
-<%= render partial: "available_rides", locals: {available_rides: @available_rides, user: @user} %>
+<%= render partial: "available_rides", locals: {available_rides: @cpools, user: @user} %>
+
+<%= @cpools.count %>
+<%= @cp2.count %>
+<hr>
+<% @cp2.each do |cpool| %>
+    <%= cpool.longitude %>
+    <br>
+    <%= cpool.latitude %>
+    <br><br>
+<% end -%>
+<hr>
 
 <script type="text/javascript">
     $(document).ready(function(){

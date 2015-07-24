@@ -1,6 +1,9 @@
 class Company < ActiveRecord::Base
+
     has_many :users
 
+    has_many :carpools, through: :users, source: :carpools    
+    
     geocoded_by :address   # can also be an IP address
     after_validation :geocode
     

@@ -2,7 +2,7 @@ class CreateCompanies < ActiveRecord::Migration
   def change
     create_table :companies do |t|
       t.string :name
-      t.string :email
+      t.string :email, unique: true
       
       t.string :password_digest
       t.string :password_confirmation

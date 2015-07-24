@@ -63,6 +63,12 @@ ActiveRecord::Schema.define(version: 20150629231831) do
   create_table "rides", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "carpool_id"
+    t.string   "street"
+    t.string   "city"
+    t.string   "state"
+    t.string   "country"
+    t.float    "latitude"
+    t.float    "longitude"
     t.boolean  "driver?",    default: false
     t.datetime "created_at",                 null: false
     t.datetime "updated_at",                 null: false
@@ -81,12 +87,6 @@ ActiveRecord::Schema.define(version: 20150629231831) do
     t.integer  "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.string   "building"
-    t.string   "street"
-    t.string   "city"
-    t.string   "state"
-    t.string   "country"
-    t.float    "latitude"
-    t.float    "longitude"
     t.integer  "company_id"
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false

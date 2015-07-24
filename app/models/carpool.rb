@@ -1,28 +1,33 @@
 class Carpool < ActiveRecord::Base
 
-    # belongs_to :driver, class_name: "User"
+    has_many :rides, -> { includes :user }, dependent: :destroy
 
-    has_many :rides
+    # has_many :rides, before_add: :check_credit_limit
     
     has_many :users, -> { uniq }, through: :rides
 
-    has_one :driver_ride, -> {drivers}, class_name: 'Ride'
+    # has_many :addresses, -> { passengers }, class_name: "Ride"
     
-    has_one :driver,through: :driver_ride, source: :user
+    has_many :driver_ride, -> {drivers}, class_name: 'Ride'
     
+    has_one :driver, through: :driver_ride, source: :user
+    
+    has_one :company, through: :driver, source: :company
+        
     has_many :passenger_rides, -> {passengers}, class_name: 'Ride'
     
-    has_many :passengers, through: :passenger_rides, source: :user
-
-    # has_one :driver, -> {  }, through: :rides
-    # has_many :passengers, -> { uniq }, through: :rides, source: :user
+    has_many :passengers, -> {uniq}, through: :passenger_rides, source: :user
 
     scope :available_rides, -> (user) { includes(:driver).where("id NOT IN (?)", user.carpools.pluck(:id)) }
 
-    # extend SimpleCalendar
-    # has_calendar
+    def pickup_addresses
+        passenger_rides.select(:longitude, :latitude)
+    end
 
-
+    def destination_address
+        driver_ride.select(:longitude, :latitude)
+    end
+    
     def starts_at
         Date.today    
     end
@@ -47,4 +52,13 @@ class Carpool < ActiveRecord::Base
         capacity.nil? ? 0 : capacity - passengers.count
     end
 
+    def destination
+        driver.company.address
+    end
+
+    private
+        
+        def check_credit_limit
+            
+        end
 end

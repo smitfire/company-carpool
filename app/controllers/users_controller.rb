@@ -24,9 +24,12 @@ class UsersController < ApplicationController
 
   def map
     @user = User.includes(:company).find(params[:id])
-    cpools = Carpool.available_rides(@user)
-    @available_rides = Kaminari.paginate_array(Carpool.available_rides(@user)).page(params[:page]).per(10)
-    @hash = Gmaps4rails.build_markers(cpools) do |cpool, marker|
+    @cpools = Carpool.available_rides(@user)
+    @cp2= @cpools.select{ |cp| cp.date.day >= Date.today.day }
+    # @available_rides = Kaminari.paginate_array(Carpool.available_rides(@user)).page(params[:page]).per(20)    
+    
+    @hash = Gmaps4rails.build_markers(@cp2) do |cpool, marker|
+    # @hash = Gmaps4rails.build_markers(@cpools) do |cpool, marker|
       marker.lat cpool.latitude
       marker.lng cpool.longitude
       # marker.infowindow "#{cpool.name} is leaving at #{cpool.date} and has #{cpool.seats_remaining} seats open"
