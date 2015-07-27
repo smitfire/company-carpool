@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
     belongs_to :company
     
     has_many :rides, -> { includes :carpool }, dependent: :destroy
-
+    
     # has_many :addresses, through: :rides, source: :lng_lat
     
     has_many :carpools, -> {uniq}, through: :rides, source: :carpool, dependent: :destroy

@@ -8,7 +8,7 @@ class Carpool < ActiveRecord::Base
 
     # has_many :addresses, -> { passengers }, class_name: "Ride"
     
-    has_many :driver_ride, -> {drivers}, class_name: 'Ride'
+    has_one :driver_ride, -> {drivers}, class_name: 'Ride'
     
     has_one :driver, through: :driver_ride, source: :user
     
@@ -37,11 +37,11 @@ class Carpool < ActiveRecord::Base
     end
 
     def latitude
-        driver.latitude
+        driver_ride.latitude
     end
 
     def longitude
-        driver.longitude
+        driver_ride.longitude
     end
 
     def space?
