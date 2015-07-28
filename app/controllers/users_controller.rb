@@ -7,6 +7,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @loc = request.location
     @user = User.includes(:company).find(params[:id])
     @available_rides = Kaminari.paginate_array(Carpool.available_rides(@user)).page(params[:page]).per(10)
     

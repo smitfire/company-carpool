@@ -1,4 +1,4 @@
-<h2 class="center">Available Rides</h2>
+<h2 class="center">Passenger Rides</h2>
 <div class="table-responsive">
     <table class="table table-striped table-hover">
       <thead>
@@ -18,7 +18,7 @@
                <td><%= po_ride.seats_remaining %></td>
                <td><%= po_ride.driver.name %></td>
                <td><%= po_ride.name %></td>
-               <td><%= po_ride.driver.distance_to( [user.latitude, user.longitude] ).round(3) %></td>
+               <td><%= po_ride.driver_ride.distance_to( [po_ride.passenger_rides.where(user_id: user.id).first.latitude, po_ride.passenger_rides.where(user_id: user.id).first.longitude] ).round(3) %></td>
                <td><%= po_ride.date %></td>  
              </tr> 
           <% end -%>        

@@ -5,7 +5,6 @@
           <th class="text-center">Join Carpool</th>
           <th class="text-center">Driver Name</th>
           <th class="text-center">Group Name</th>
-          <th class="text-center">Distance</th>
           <th class="text-center">Date Time</th>
           <th class="text-center">Spaces Left</th>
         </tr>
@@ -17,7 +16,6 @@
            <td><%= link_to "+", join_carpool_path(user, po_ride), class: "btn btn-sm btn-default joinbtn" %></td>
            <td class="text-center"><%= link_to po_ride.driver.name, company_user_path(user.company, po_ride.driver) %></td>
            <td class="text-center"><%= link_to po_ride.name, company_user_carpool_path(user.company, po_ride.driver, po_ride) %></td>
-           <td class="text-center"><%= po_ride.driver_ride.distance_to( [user.latitude, user.longitude] ).round(3) %></td>
            <td class="text-center"><%= po_ride.date.to_formatted_s(:short) %></td>
            <td class="text-center"><%= po_ride.seats_remaining %></td>
          </tr> 

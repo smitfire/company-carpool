@@ -3,18 +3,16 @@ class Ride < ActiveRecord::Base
     belongs_to :carpool
 
     belongs_to :user
-        
+
     scope :drivers, -> { where(driver?: true) }
     
     scope :passengers, -> { where(driver?: false) }
     
-    scope :all_addresses, -> { where( "longitude > ?", 0 ) }
+    # scope :all_addresses, -> { where( "longitude > ?", 0 ) }
     scope :all_addresses, -> { where( "street is not ?", nil ) }
     
-    scope :all_incomplete_addresses, -> { where( "longitude is ?", nil) }
+    # scope :all_incomplete_addresses, -> { where( "longitude is ?", nil) }
     scope :all_incomplete_addresses, -> { where( "street is ?", nil) }
-
-    has_many :passenger_addresses, through: :passengers, source: :pickup_lnglats
 
     validates :carpool, :user, presence: true
     
